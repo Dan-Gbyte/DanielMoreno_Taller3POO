@@ -71,6 +71,50 @@ public class SistemaMagia implements Sistema{
             }
         }
 		return null;
+	}
+
+
+	@Override
+	public boolean agregarMago(String nomMago) {
+		
+		return false;
+		
+	}
+
+
+	@Override
+	public boolean modificarMago(String nomMago) {
+		return false;
+	}
+
+
+	
+	
+	@Override
+	public void eliminarMago() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void agregarHechizo() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void modificarHechizo() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void eliminarHechizo() {
+		// TODO Auto-generated method stub
+		
 	} 
 
 }
