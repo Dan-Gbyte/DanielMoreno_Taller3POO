@@ -30,7 +30,7 @@ public class SistemaMagia implements Sistema{
 				String[] partesHechizos = partes[1].split("\\|"); //al parecer da error esta cosa sin los dos "\\"
 				for (int i = 0; i < partesHechizos.length; i++) {
                     String nomHechizo = partesHechizos[i];
-                    System.out.println(nomHechizo);
+                    //System.out.println(nomHechizo);
                     Hechizo hechizoCatalogo = this.buscarHechizo(nomHechizo);
                     nuevoMago.agregarHechizo(hechizoCatalogo);
                 }
@@ -73,12 +73,26 @@ public class SistemaMagia implements Sistema{
 		return null;
 	}
 
-
+	public Mago buscarMago(String nomMago) {
+	
+		for (int i = 0; i < listMagos.size(); i++) {
+			if (nomMago.equals(this.listMagos.get(i).getNombre())) {
+				return listMagos.get(i);
+			}
+		}
+		return null;
+	}
+	
+	
+	
 	@Override
-	public boolean agregarMago(String nomMago) {
-		
+	public boolean agregarMago(String nomMago) { //ERROR, el mago empieza sin hechizos y eso no puede ser
+		if (buscarMago(nomMago) == null) {
+			Mago nuevoMago = new Mago (nomMago);
+			listMagos.add(nuevoMago);
+			return true;
+		}
 		return false;
-		
 	}
 
 
@@ -91,8 +105,10 @@ public class SistemaMagia implements Sistema{
 	
 	
 	@Override
-	public void eliminarMago() {
-		// TODO Auto-generated method stub
+	public void eliminarMago(int indice) {
+		if (indice < listMagos.size()) {
+			listMagos.remove(indice);
+		}
 		
 	}
 
@@ -117,4 +133,33 @@ public class SistemaMagia implements Sistema{
 		
 	} 
 
+	@Override
+	public void mostrarMagos() {
+		int n = 0;
+		for (Mago mago: listMagos) {
+			System.out.println(++n + ") " + mago.getNombre());
+		}
+	}
+	
+	@Override
+	public void mostrarHechizos() {
+		int n = 0;
+		for (Hechizo hechizo: listHechizos) {
+			System.out.println(++n + ") " + hechizo.getNombre());
+		}
+	}
+
+
+	@Override
+	public boolean aprenderHechizo(String nomMago, int indice) {
+		//System.out.println(indice + " < " + listHechizos.size());
+		if( indice < listHechizos.size()) {
+			Mago aprendiz = buscarMago(nomMago);
+			aprendiz.agregarHechizo(listHechizos.get(indice));
+			return true;
+		}
+		
+			System.out.println("No se pudo aprender el hechizo...\n");
+		return false;
+	}
 }

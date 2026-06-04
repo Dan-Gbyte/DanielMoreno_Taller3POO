@@ -24,4 +24,15 @@ public class Mago implements Calculable {
 	    return total;
 	}
 
+	public String getNombre() {
+		return nombre;
+	}
+
+	//tenia una idea para esto pero me arrepentí, igual puede servir
+	/*public boolean comparar(Mago mago) {
+		if (this.nombre.equals(mago.getNombre())) {
+			return true;
+		}
+		return false;
+	}*/ 
 }
