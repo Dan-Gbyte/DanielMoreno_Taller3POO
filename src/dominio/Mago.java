@@ -8,7 +8,7 @@ public class Mago implements Calculable {
 	
 	public Mago(String nombre) {
 		this.nombre = nombre;
-		this.listHechizos = new ArrayList();
+		this.listHechizos = new ArrayList<Hechizo>();
 	}
 	
 	public void agregarHechizo(Hechizo hechizo){
@@ -35,4 +35,12 @@ public class Mago implements Calculable {
 		}
 		return false;
 	}*/ 
+	
+	public String getRepertorio() {
+		String repertorio = listHechizos.get(0).getNombre();
+		for (int i = 1; i < listHechizos.size(); i++) {
+			repertorio = repertorio + "|" + listHechizos.get(0).getNombre();
+		}
+		return repertorio;
+	}
 }

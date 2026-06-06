@@ -1,7 +1,9 @@
 package logica;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -42,6 +44,19 @@ public class SistemaMagia implements Sistema{
 	}
 
 	@Override
+	public void guardarMagos() {
+		try (BufferedWriter escritor = new BufferedWriter(new FileWriter("Magos.txt"))){
+			for (Mago mago: listMagos) {
+				escritor.write(mago.getNombre() + ";" + mago.getRepertorio());
+				escritor.newLine();
+			}
+		} catch (Exception e) {
+			System.out.println("Hubo un error al guardar los magos...");
+		}
+		
+	}
+	
+	@Override
 	public void leerHechizos() {
 		try {
 			File f = new File("Hechizos.txt");
@@ -61,7 +76,22 @@ public class SistemaMagia implements Sistema{
 		
 	}
 
-
+	@Override
+	public void guardarHechizos() {
+		try (BufferedWriter escritor = new BufferedWriter(new FileWriter("Hechizos.txt"))){
+			
+			for (Hechizo hechizo: listHechizos) {
+				escritor.write(hechizo.getDatos());
+				escritor.newLine();
+			}
+			
+		}catch (Exception e) {
+			System.out.println("Hubo un error al guardar los hechizos...");
+		}
+		
+	}
+	
+	
 	@Override
 	public Hechizo buscarHechizo(String nomHechizo) {
 		for (Hechizo hechizoCatalogo : listHechizos) {
@@ -95,27 +125,53 @@ public class SistemaMagia implements Sistema{
 		return false;
 	}
 
+	public static void agregarMago(Sistema sistema,Scanner entrada) { //incompleto (creo)
+		System.out.print("\nIngrese un nombre para el nuevo mago:");
+		String nombre = entrada.nextLine();
+		
+		sistema.agregarMago(nombre);
+		
+		System.out.println(nombre + " necesita un hechizo inicial. Los hechizos existentes son: ");
+		sistema.mostrarHechizos();
+		boolean aux;
+		do {
+			System.out.print("Ingrese el hechizo inicial de " + nombre + ": ");
+			int hechizo;
+			do {
+				hechizo = leerOpcionSegura(entrada) - 1;
+			}while (hechizo == -1);
+			
+			
+			aux = sistema.aprenderHechizo(nombre, hechizo);
+		} while (aux == false);
+		
+	}
 
 	@Override
 	public boolean modificarMago(String nomMago) {
 		return false;
 	}
 
-
-	
 	
 	@Override
-	public void eliminarMago(int indice) {
+	public void eliminarMago(Sistema sistema, Scanner entrada) {
+		System.out.println("Magos registrados: \n");
+		sistema.mostrarMagos();
+		System.out.print("Ingrese el número del mago que quiere eliminar: ");
+		
+		int indice = leerOpcionSegura(entrada)-1;
 		if (indice < listMagos.size()) {
 			listMagos.remove(indice);
 		}
-		
 	}
 
-
 	@Override
-	public void agregarHechizo() {
-		// TODO Auto-generated method stub
+	public  void agregarHechizo(Sistema sistema, Scanner entrada) {
+		System.out.print("\nIngrese un nombre para el hechizo nuevo: ");
+		String nombre = entrada.nextLine();
+		
+		System.out.println("\nIngrese el tipo de hechizo que será " + nombre + ": "); //no sé cómo seguir
+		
 		
 	}
 
@@ -128,10 +184,20 @@ public class SistemaMagia implements Sistema{
 
 
 	@Override
-	public void eliminarHechizo() {
-		// TODO Auto-generated method stub
+	public void eliminarHechizo(Sistema sistema, Scanner entrada) {
+		System.out.println("Los hechizos existentes son: ");
+		sistema.mostrarHechizos();
 		
-	} 
+		int hechizo;
+		do {
+			System.out.print("\nIngrese el numero del hechizo a eliminar: ");
+			hechizo = leerOpcionSegura(entrada) - 1;
+			if (hechizo == -1) {
+				System.out.println("No existe ese hechizo...\n");
+			}
+		} while (hechizo == -1);
+		
+	}
 
 	@Override
 	public void mostrarMagos() {
@@ -162,4 +228,16 @@ public class SistemaMagia implements Sistema{
 			System.out.println("No se pudo aprender el hechizo...\n");
 		return false;
 	}
+
+	//@Override
+	public static int leerOpcionSegura(Scanner sc) {
+		try {
+			int opcion = Integer.parseInt(sc.nextLine());
+			return opcion;
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		return -1;
+	}
+	
 }

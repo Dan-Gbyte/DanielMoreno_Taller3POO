@@ -13,4 +13,10 @@ public class HechizoTierra extends Hechizo {
 		return (super.getDaño()*this.mejoraDefensa)/2;
 	}
 
+	@Override
+	public String getDatos() {
+		String datos = this.getDatos() + ";" + this.mejoraDefensa;
+		return datos;
+	}
+	
 }

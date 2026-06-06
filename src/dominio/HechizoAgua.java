@@ -16,4 +16,10 @@ public class HechizoAgua extends Hechizo {
 		return (super.getDaño()+this.cantidadHeal+this.presionAgua)*2;
 	}
 
+	@Override
+	public String getDatos() {
+		String datos = this.getDatos() + ";" + this.cantidadHeal + ";" + this.presionAgua;
+		return datos;
+	}
+
 }

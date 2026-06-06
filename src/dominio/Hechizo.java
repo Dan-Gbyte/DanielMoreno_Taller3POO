@@ -34,4 +34,8 @@ public abstract class Hechizo implements Calculable {
 		this.daño = daño;
 	}
 	
+	public String getDatos() {
+		String datos = this.nombre + ";" + tipo + ";" + daño;
+		return datos;
+	}
 }

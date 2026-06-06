@@ -15,4 +15,10 @@ public class HechizoPlanta extends Hechizo {
 		return super.getDaño()+(this.cantPlantas*this.duracionStun);
 	}
 
+	@Override
+	public String getDatos() {
+		String datos = this.getDatos() + ";" + this.duracionStun + ";" + this.cantPlantas;
+		return datos;
+	}
+	
 }

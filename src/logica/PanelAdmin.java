@@ -29,19 +29,23 @@ public class PanelAdmin {
 	public static void procesarOpcion(int opcion, SistemaMagia sis, Scanner sc) {
 		switch (opcion) {
 		case 1:
-			agregarMago(sis, sc);
+			sis.agregarMago(sis, sc);
+			sis.guardarMagos();
 			break;
 		case 2:
 			break;
 		case 3:
-			eliminarMago(sis, sc);
+			sis.eliminarMago(sis, sc);
+			sis.guardarMagos();
 			break;
 		case 4:
+			sis.agregarHechizo(sis, sc);
 			break;
 		case 5:
 			break;
 		case 6:
-			eliminarHechizo(sis, sc);
+			sis.eliminarHechizo(sis, sc);
+			sis.guardarHechizos();
 			break;
 		case 7:
 			System.out.println("\nVolviendo al menú principal...\n");
@@ -51,64 +55,6 @@ public class PanelAdmin {
 			break;
 		}
 	}
-	public static int leerOpcionSegura(Scanner sc) {
-		try {
-			int opcion = Integer.parseInt(sc.nextLine());
-			return opcion;
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
-		return -1;
-	}
 	
-	public static void agregarMago(Sistema sistema,Scanner entrada) { //incompleto (creo)
-		System.out.print("\nIngrese un nombre para el nuevo mago:");
-		String nombre = entrada.nextLine();
-		
-		sistema.agregarMago(nombre);
-		
-		System.out.println(nombre + " necesita un hechizo inicial. Los hechizos existentes son: ");
-		sistema.mostrarHechizos();
-		boolean aux;
-		do {
-			System.out.print("Ingrese el hechizo inicial de " + nombre + ": ");
-			int hechizo;
-			do {
-				hechizo = leerOpcionSegura(entrada) - 1;
-			}while (hechizo == -1);
-			
-			
-			aux = sistema.aprenderHechizo(nombre, hechizo);
-		} while (aux == false);
-		
-	}
-
-	public static void eliminarMago(Sistema sistema, Scanner entrada) {
-		System.out.println("Magos registrados: \n");
-		sistema.mostrarMagos();
-		System.out.print("Ingrese el número del mago que quiere eliminar: ");
-		
-		sistema.eliminarMago(leerOpcionSegura(entrada)-1);
-	}
-	public static void agregarHechizo(Sistema sistema, Scanner entrada) {
-		System.out.print("\nIngrese un nombre para el hechizo nuevo: ");
-		String nombre = entrada.nextLine();
-		
-		System.out.println("\nIngrese el tipo de " + nombre + ": "); //no sé cómo seguir
-		
-	}
-	public static void eliminarHechizo(Sistema sistema, Scanner entrada) {
-		System.out.println("Los hechizos existentes son: ");
-		sistema.mostrarHechizos();
-		
-		int hechizo;
-		do {
-			System.out.print("\nIngrese el numero del hechizo a eliminar: ");
-			hechizo = leerOpcionSegura(entrada) - 1;
-			if (hechizo == -1) {
-				System.out.println("No existe ese hechizo...\n");
-			}
-		} while (hechizo == -1);
-		
-	}
+	
 }

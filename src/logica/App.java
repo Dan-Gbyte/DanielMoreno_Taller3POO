@@ -22,7 +22,7 @@ public class App {
 					+ "\n3) Salir"
 					+ "\n\nIngrese una opción: ");
 			
-			menu = PanelAdmin.leerOpcionSegura(entrada);
+			menu = sistema.leerOpcionSegura(entrada);
 			switch (menu) {
 				case 1:
 					PanelAdmin.iniciarPanelA(sistema, entrada);
