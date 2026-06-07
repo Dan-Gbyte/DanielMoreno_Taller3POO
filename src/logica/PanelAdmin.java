@@ -17,7 +17,7 @@ public class PanelAdmin {
             System.out.print("Seleccione una opción: ");
             
             try {
-                opcion = Integer.parseInt(sc.nextLine());
+                opcion = HerramientasConsola.leerOpcionSegura(sc); //LEEROPCIONSEGURA
                 procesarOpcion(opcion, sis, sc);
             } catch (NumberFormatException e) {
                 System.out.println("Por favor, ingrese un número válido.");
@@ -29,22 +29,110 @@ public class PanelAdmin {
 	public static void procesarOpcion(int opcion, SistemaMagia sis, Scanner sc) {
 		switch (opcion) {
 		case 1:
-			sis.agregarMago(sis, sc);
-			sis.guardarMagos();
-			break;
+            System.out.print("Ingrese el nombre del nuevo mago: ");
+            String nombreMago = sc.nextLine();
+            
+            if (sis.agregarMago(nombreMago)) {
+                System.out.println("Mago agregado con éxito!..");
+                sis.guardarMagos(); //guardamos de una
+            } else {
+                System.out.println("Error Ya existe un mago con ese nombre..");
+            }
+            break;
 		case 2:
+            System.out.println(sis.mostrarMagos()); // Mostramos la lista
+            System.out.print("Ingrese el número del mago a modificar: ");
+            int indexMod = HerramientasConsola.leerOpcionSegura(sc);
+            
+            System.out.print("Ingrese el nuevo nombre del mago: ");
+            String nuevoNom = sc.nextLine();
+            
+            if (sis.modificarMago(indexMod, nuevoNom)) {
+                System.out.println("Mago modificado con éxito!..");
+                sis.guardarMagos();
+            } else {
+                System.out.println("Error Número inválido o el nombre ya está en uso..");
+            }
 			break;
 		case 3:
-			sis.eliminarMago(sis, sc);
-			sis.guardarMagos();
+			System.out.println(sis.mostrarMagos());
+            System.out.print("Ingrese el número del mago a eliminar: ");
+            int indexEliminar = HerramientasConsola.leerOpcionSegura(sc);
+            
+            if (sis.eliminarMago(indexEliminar)) {
+                System.out.println("Mago eliminado con éxito!..");
+                sis.guardarMagos();
+            } else {
+                System.out.println("Error Numero de mago inválido");
+            }
 			break;
 		case 4:
-			sis.agregarHechizo(sis, sc);
-			break;
+			System.out.print("Nombre del hechizo: ");
+            String nom = sc.nextLine();
+            System.out.print("Tipo (Fuego, Tierra, Planta, Agua): ");
+            String tipo = sc.nextLine();
+            System.out.print("Daño base: ");
+            int dano = HerramientasConsola.leerOpcionSegura(sc);
+            
+            String lineaConstruida = nom + ";" + tipo + ";" + dano;
+            
+            //Pedimos los datos extras dependiendo del tipo elegido.. pudo ser un switch case esto tmb pero x
+            if (tipo.equalsIgnoreCase("Fuego")) {
+                System.out.print("Duración de la quemadura: ");
+                int duracion = HerramientasConsola.leerOpcionSegura(sc);
+                lineaConstruida += ";" + duracion;
+            } else if (tipo.equalsIgnoreCase("Tierra")) {
+                System.out.print("Mejora de defensa: ");
+                int defensa = HerramientasConsola.leerOpcionSegura(sc);
+                lineaConstruida += ";" + defensa;
+            } else if (tipo.equalsIgnoreCase("Planta")) {
+                System.out.print("Duración del Stun: ");
+                int stun = HerramientasConsola.leerOpcionSegura(sc);
+                System.out.print("Cantidad de plantas: ");
+                int plantas = HerramientasConsola.leerOpcionSegura(sc);
+                lineaConstruida += ";" + stun + "," + plantas;
+            } else if (tipo.equalsIgnoreCase("Agua")) {
+                System.out.print("Cantidad de curación: ");
+                int heal = HerramientasConsola.leerOpcionSegura(sc);
+                System.out.print("Presión del agua: ");
+                int presion = HerramientasConsola.leerOpcionSegura(sc);
+                lineaConstruida += ";" + heal + "," + presion;
+            }
+            
+            if (sis.agregarHechizo(lineaConstruida)) {//ocupamos metodo del sistema
+                System.out.println("Hrchizo agregado!!");
+                sis.guardarHechizos();
+            } else {
+                System.out.println("Error no se pudo agregar (datos inválidos o ya existe)");
+            }
+            break;
 		case 5:
+			System.out.println(sis.mostrarHechizos());
+            System.out.print("Seleccione el índice del hechizo a modificar: ");
+            int idxMod = HerramientasConsola.leerOpcionSegura(sc);
+            
+            System.out.print("Ingrese el nuevo daño base: ");
+            int nDano = HerramientasConsola.leerOpcionSegura(sc);
+            
+            if (sis.modificarHechizo(idxMod, nDano)) {
+                System.out.println("Hechizo modificado y en todos los magos!");
+                sis.guardarHechizos();
+                sis.guardarMagos(); // Guardamos magos también porque sus puntuaciones cambiaron o no??
+            } else {
+                System.out.println("Error indice inválido");
+            }
 			break;
 		case 6:
-			sis.eliminarHechizo(sis, sc);
+			System.out.println(sis.mostrarHechizos());
+            System.out.print("Seleccione el índice del hechizo a eliminar: ");
+            int idxEliminar = HerramientasConsola.leerOpcionSegura(sc);
+            
+			if (sis.eliminarHechizo(idxEliminar)) {
+                System.out.println("Hechizo eliminado con éxito..");
+                sis.guardarHechizos();
+            } else {
+                System.out.println("Error indice inválido");
+            }
 			sis.guardarHechizos();
 			break;
 		case 7:

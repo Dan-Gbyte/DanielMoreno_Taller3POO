@@ -36,6 +36,10 @@ public class Mago implements Calculable {
 		return false;
 	}*/ 
 	
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
 	public String getRepertorio() {
 		String repertorio = listHechizos.get(0).getNombre();
 		for (int i = 1; i < listHechizos.size(); i++) {

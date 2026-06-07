@@ -17,7 +17,7 @@ public class HechizoPlanta extends Hechizo {
 
 	@Override
 	public String getDatos() {
-		String datos = this.getDatos() + ";" + this.duracionStun + ";" + this.cantPlantas;
+		String datos = super.getDatos() + ";" + this.duracionStun + ";" + this.cantPlantas;
 		return datos;
 	}
 	

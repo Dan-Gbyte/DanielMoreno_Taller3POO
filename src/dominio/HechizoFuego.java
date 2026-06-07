@@ -16,7 +16,7 @@ public class HechizoFuego extends Hechizo {
 
 	@Override
 	public String getDatos() {
-		String datos = this.getDatos() + ";" + this.duracionQuemadura;
+		String datos = super.getDatos() + ";" + this.duracionQuemadura;
 		return datos;
 	}
 }

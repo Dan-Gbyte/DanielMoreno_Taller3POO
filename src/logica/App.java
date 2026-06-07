@@ -22,13 +22,13 @@ public class App {
 					+ "\n3) Salir"
 					+ "\n\nIngrese una opción: ");
 			
-			menu = sistema.leerOpcionSegura(entrada);
+			menu = HerramientasConsola.leerOpcionSegura(entrada);
 			switch (menu) {
 				case 1:
 					PanelAdmin.iniciarPanelA(sistema, entrada);
 					break;
 				case 2:
-					//no hay sistema de analisis aun
+					PanelAnalista.iniciarPanelAnalista(sistema, entrada);
 					break;
 				case 3:
 					System.out.println("Programa Finalizado.");
