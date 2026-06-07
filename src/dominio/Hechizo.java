@@ -38,4 +38,6 @@ public abstract class Hechizo implements Calculable {
 		String datos = this.nombre + ";" + tipo + ";" + daño;
 		return datos;
 	}
+	
+	
 }

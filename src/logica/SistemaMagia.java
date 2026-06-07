@@ -31,12 +31,12 @@ public class SistemaMagia implements Sistema {
 				String[] partesHechizos = partes[1].split("\\|"); // al parecer da error esta cosa sin los dos "\\"
 				for (int i = 0; i < partesHechizos.length; i++) {
 					String nomHechizo = partesHechizos[i];
-					// System.out.println(nomHechizo);
 					Hechizo hechizoCatalogo = this.buscarHechizo(nomHechizo);
 					nuevoMago.agregarHechizo(hechizoCatalogo);
 				}
 				listMagos.add(nuevoMago);
 			}
+			sc.close();
 		} catch (Exception e) {
 			System.out.println("error al leer archivo.. " + e.getMessage());
 		}
@@ -45,12 +45,15 @@ public class SistemaMagia implements Sistema {
 	@Override
 	public void guardarMagos() {
 		try (BufferedWriter escritor = new BufferedWriter(new FileWriter("Magos.txt"))) {
+			if (listMagos.isEmpty()) {
+				return;
+			}
 			for (Mago mago : listMagos) {
 				escritor.write(mago.getNombre() + ";" + mago.getRepertorio());
 				escritor.newLine();
 			}
 		} catch (Exception e) {
-			System.out.println("Hubo un error al guardar los magos...");
+			System.out.println("Hubo un error al guardar los magos..." + "\n\n ERROR: " + e.getMessage());
 		}
 
 	}
@@ -66,7 +69,7 @@ public class SistemaMagia implements Sistema {
 
 				listHechizos.add(nuevoHechizo);
 			}
-
+			sc.close();
 		} catch (Exception e) {
 			System.out.println("error al leer archivo.. " + e.getMessage());
 		}
@@ -119,7 +122,7 @@ public class SistemaMagia implements Sistema {
 		// Armamos un texto gigante con todos los magos, NO usamos System.out.println
 		String texto = "--- LISTA DE MAGOS ---\n";
 		for (int i = 0; i < listMagos.size(); i++) {
-			texto += i + ") " + listMagos.get(i).getNombre() + "\n";
+			texto += i+1 + ") " + listMagos.get(i).getNombre() + "\n";
 		}
 		return texto;
 	}
@@ -147,25 +150,40 @@ public class SistemaMagia implements Sistema {
 	}
 
 	@Override
-	public boolean modificarMago(int indice, String nuevoNombre) { // no se que mas modificar de un mago.. sus hechizos
-																	// enunciado ambiguo
-		if (indice >= 0 && indice < listMagos.size()) {
-			// Ver que el nuevo nombre no lo tenga ya otro mago
-			for (Mago m : listMagos) {
-				if (m.getNombre().equalsIgnoreCase(nuevoNombre)) {
-					return false;
+	public boolean modificarMago(int tipoCambio, int indice, String nuevoDato) { // lo haré mas funcional
+																	
+		switch(tipoCambio) {
+		case 1:
+			if (indice >= 0 && indice < listMagos.size()) {
+				// Ver que el nuevo nombre no lo tenga ya otro mago
+				for (Mago m : listMagos) {
+					if (m.getNombre().equalsIgnoreCase(nuevoDato)) {
+						return false;
+					}
 				}
-			}
 
-			listMagos.get(indice).setNombre(nuevoNombre);
+				listMagos.get(indice).setNombre(nuevoDato);
+				return true;
+			}
+			break;
+		case 2:
+			Mago mago = listMagos.get(indice);
+			Hechizo hechizo = buscarHechizo(nuevoDato);
+			if (hechizo != null) {
+			mago.agregarHechizo(hechizo);
 			return true;
+			}
+			break;
+		case 3:
+			Mago mago_ = listMagos.get(indice);
+			mago_.olvidarHechizo(nuevoDato);
+			break;
 		}
 		return false;
 	}
 
 	@Override
 	public boolean aprenderHechizo(String nomMago, int indice) {
-		// System.out.println(indice + " < " + listHechizos.size());
 		if (indice < listHechizos.size()) {
 			Mago aprendiz = buscarMago(nomMago);
 			aprendiz.agregarHechizo(listHechizos.get(indice));
@@ -226,7 +244,7 @@ public class SistemaMagia implements Sistema {
 		String texto = "--- CATÁLOGO DE HECHIZOS EXISTENTES ---\n";
 		for (int i = 0; i < listHechizos.size(); i++) {
 			Hechizo h = listHechizos.get(i);
-			texto += i + ") " + h.getNombre() + " Tipo: " + h.getTipo() + " Daño Base: " + h.getDaño() + "\n";
+			texto += i+1 + ") " + h.getNombre() + " | Tipo: " + h.getTipo() + " | Daño Base: " + h.getDaño() + "\n";
 		}
 		return texto;
 	}
@@ -235,35 +253,93 @@ public class SistemaMagia implements Sistema {
 	
 	@Override
 	public String mostrarTodosHechizosPuntuacion() {
-		// TODO Auto-generated method stub
-		return null;
+		if (listHechizos.isEmpty()) {
+			return "No hay hechizos registrados";
+		}
+
+		String texto = "--- HECHIZOS ---\n"
+				+ " NOMBRE  |  PUNTUACIÓN \n";
+		for (int i = 0; i < listHechizos.size(); i++) {
+			Hechizo h = listHechizos.get(i);
+			texto += i + ") " + h.getNombre() +  " | "  + h.calcularPuntaje() +"\n";
+		}
+		return texto;
 	}
 
 	@Override
 	public String mostrarTodosMagosPuntuacion() {
-		// TODO Auto-generated method stub
-		return null;
+		if (listMagos.isEmpty()) {
+			return "No hay magos registrados en el sistema..";
+		}
+
+		// Armamos un texto gigante con todos los magos, NO usamos System.out.println
+		String texto = "--- LISTA DE MAGOS ---\n"
+				+ "NOMBRE  |  PUNTUACIÓN \n";
+		for (int i = 0; i < listMagos.size(); i++) {
+			texto += i + ") " + listMagos.get(i).getNombre() + " | " + listMagos.get(i).calcularPuntaje() +"\n";
+		}
+		return texto;
 	}
 
 	@Override
 	public String obtenerTop10Hechizos() {
 		if(listMagos.isEmpty()) return "No hay magos registrados.";
-
+	    ArrayList<Hechizo> copiaHechizos = new ArrayList<>(listHechizos);//Clonamos la lista para no desordenar el original
 	    
-	    ArrayList<Mago> copiaMagos = new ArrayList<>(listMagos);//Clonamos la lista para no desordenar el original
-
-	    //Ordenamos de mayor a menor usando la interfaz Calculable.. no quiero ocupar el burbuja 
+	  //ordenamos
+	    for (int i = 0; i < copiaHechizos.size(); i++) {
+	    	for (int j = 0; j < copiaHechizos.size() - 1 - i ; j++) {
+	    		double puntaje = copiaHechizos.get(j).calcularPuntaje();
+	    		double sigPuntaje = copiaHechizos.get(j+1).calcularPuntaje();
+	    		
+	    		if (sigPuntaje > puntaje) {
+	    			Hechizo aux = copiaHechizos.get(j);
+	    			
+	    			copiaHechizos.set(j, copiaHechizos.get(j+1));
+	    			copiaHechizos.set(j+1, aux);
+	    		}
+	    	}
+	    }
+	    String texto = "\n--- TOP MEJORES HECHIZOS ---\n\n" //creamos el texto a retornar
+	    		+ " NOMBRE | PUNTAJE\n";
 	    
-
-	    //Armamos el String solo con los 3 primeros
-
+	    int limite = copiaHechizos.size();//revisamos cuantos hechizos hay
+	    if (copiaHechizos.size() > 10) {limite = 10;}
 	    
-	    return null; //texto con los 3 primeros;
+	    for ( int i = 0; i < limite; i++) {
+	    	texto += i+1 + ") " + copiaHechizos.get(i).getNombre() + " | " + copiaHechizos.get(i).calcularPuntaje() + " puntos\n";
+	    }
+		return texto;  
 	}
 
 	@Override
 	public String obtenerTop3Magos() {
-		// TODO Auto-generated method stub
-		return null;
+
+		if(listMagos.isEmpty()) return "No hay magos registrados.";
+	    ArrayList<Mago> copiaMagos = new ArrayList<>(listMagos);//Clonamos la lista para no desordenar el original
+	    
+	  //ordenamos
+	    for (int i = 0; i < copiaMagos.size(); i++) {
+	    	for (int j = 0; j < copiaMagos.size() - 1 - i ; j++) {
+	    		double puntaje = copiaMagos.get(j).calcularPuntaje();
+	    		double sigPuntaje = copiaMagos.get(j+1).calcularPuntaje();
+	    		
+	    		if (sigPuntaje > puntaje) {
+	    			Mago aux = copiaMagos.get(j);
+	    			
+	    			copiaMagos.set(j, copiaMagos.get(j+1));
+	    			copiaMagos.set(j+1, aux);
+	    		}
+	    	}
+	    }
+	    String texto = "\n--- TOP MAGOS ---\n\n";//creamos el texto a retornar
+	    
+	    int limite = copiaMagos.size();//revisamos cuantos magos hay
+	    if (copiaMagos.size() > 3) {limite = 3;}
+	    
+	    for ( int i = 0; i < limite; i++) {
+	    	texto += i+1 + "° lugar: " + copiaMagos.get(i).getNombre() + " con " + copiaMagos.get(i).calcularPuntaje() + " puntos\n";
+	    }
+		return texto; 
 	}
 }

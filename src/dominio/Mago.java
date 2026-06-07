@@ -28,23 +28,34 @@ public class Mago implements Calculable {
 		return nombre;
 	}
 
-	//tenia una idea para esto pero me arrepentí, igual puede servir
-	/*public boolean comparar(Mago mago) {
-		if (this.nombre.equals(mago.getNombre())) {
-			return true;
-		}
-		return false;
-	}*/ 
-	
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
 
 	public String getRepertorio() {
+		if (listHechizos.isEmpty()) {
+			return " ";
+		}
+		
 		String repertorio = listHechizos.get(0).getNombre();
 		for (int i = 1; i < listHechizos.size(); i++) {
 			repertorio = repertorio + "|" + listHechizos.get(0).getNombre();
 		}
 		return repertorio;
 	}
+	
+	public boolean olvidarHechizo(String nombreHechizo) {
+		
+		for (int i = 0; i < listHechizos.size(); i++) {
+			if (listHechizos.get(i).getNombre().equalsIgnoreCase(nombreHechizo)) {
+				listHechizos.remove(i);
+				return true;
+			}
+		}
+		
+		return false;
+	}
+
+
+	
 }

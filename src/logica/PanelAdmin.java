@@ -36,28 +36,66 @@ public class PanelAdmin {
                 System.out.println("Mago agregado con éxito!..");
                 sis.guardarMagos(); //guardamos de una
             } else {
-                System.out.println("Error Ya existe un mago con ese nombre..");
+                System.out.println("Error: Ya existe un mago con ese nombre...");
             }
             break;
 		case 2:
             System.out.println(sis.mostrarMagos()); // Mostramos la lista
             System.out.print("Ingrese el número del mago a modificar: ");
-            int indexMod = HerramientasConsola.leerOpcionSegura(sc);
+            int indexMod = HerramientasConsola.leerOpcionSegura(sc) - 1;
             
-            System.out.print("Ingrese el nuevo nombre del mago: ");
-            String nuevoNom = sc.nextLine();
+            System.out.println("¿Qué quiere modificar?\n"
+            		+ "1) Nombre\n"
+            		+ "2) Aprender hechizo\n"
+            		+ "3) Olvidar hechizo");
+            int opcionModificar = HerramientasConsola.leerOpcionSegura(sc);
+            switch (opcionModificar) {
             
-            if (sis.modificarMago(indexMod, nuevoNom)) {
-                System.out.println("Mago modificado con éxito!..");
-                sis.guardarMagos();
-            } else {
-                System.out.println("Error Número inválido o el nombre ya está en uso..");
+            case 1:
+            	System.out.print("Ingrese el nuevo nombre del mago: ");
+                String nuevoNom = sc.nextLine();
+                
+                if (sis.modificarMago(1, indexMod, nuevoNom)) {
+                    System.out.println("Mago modificado con éxito!..");
+                    sis.guardarMagos();
+                } else {
+                    System.out.println("Error: Número inválido o el nombre ya está en uso..");
+                }
+                break;
+            case 2:
+            	System.out.println(sis.mostrarHechizos() +
+            			"\nIngrese el nombre del hechizo a aprender: ");
+            	String nuevoHechizo = sc.nextLine();
+            	
+            	
+            	if (sis.modificarMago(2, indexMod, nuevoHechizo)) {
+            		System.out.println("Se ha aprendido con éxito el nuevo hechizo");
+            		sis.guardarMagos();
+            	} else { 
+            		System.out.println("Error: No se pudo aprender el hechizo");
+            		}
+            	break;
+            case 3:
+            	System.out.println(sis.mostrarHechizos() +
+            			"\nIngrese el nombre del hechizo a olvidar: ");
+            	String hechizoOlvidable = sc.nextLine();
+            	if (sis.modificarMago(3, indexMod, hechizoOlvidable)) {
+            		System.out.println("Hechizo olvidado");
+            		sis.guardarMagos();
+            	} else {
+            		System.out.println("Error: No se pudo olvidar el hechizo");
+            	}
+            	break;
+            default:
+            	System.out.println("Opción no válida...");
             }
+            
+            
 			break;
 		case 3:
 			System.out.println(sis.mostrarMagos());
             System.out.print("Ingrese el número del mago a eliminar: ");
-            int indexEliminar = HerramientasConsola.leerOpcionSegura(sc);
+            int indexEliminar = HerramientasConsola.leerOpcionSegura(sc) - 1;
             
             if (sis.eliminarMago(indexEliminar)) {
                 System.out.println("Mago eliminado con éxito!..");
@@ -97,6 +135,9 @@ public class PanelAdmin {
                 System.out.print("Presión del agua: ");
                 int presion = HerramientasConsola.leerOpcionSegura(sc);
                 lineaConstruida += ";" + heal + "," + presion;
+            } else {
+            	System.out.println("Ese no es un tipo válido");
+            	break;
             }
             
             if (sis.agregarHechizo(lineaConstruida)) {//ocupamos metodo del sistema
@@ -109,7 +150,7 @@ public class PanelAdmin {
 		case 5:
 			System.out.println(sis.mostrarHechizos());
             System.out.print("Seleccione el índice del hechizo a modificar: ");
-            int idxMod = HerramientasConsola.leerOpcionSegura(sc);
+            int idxMod = HerramientasConsola.leerOpcionSegura(sc) - 1;
             
             System.out.print("Ingrese el nuevo daño base: ");
             int nDano = HerramientasConsola.leerOpcionSegura(sc);
@@ -125,7 +166,7 @@ public class PanelAdmin {
 		case 6:
 			System.out.println(sis.mostrarHechizos());
             System.out.print("Seleccione el índice del hechizo a eliminar: ");
-            int idxEliminar = HerramientasConsola.leerOpcionSegura(sc);
+            int idxEliminar = HerramientasConsola.leerOpcionSegura(sc) - 1;
             
 			if (sis.eliminarHechizo(idxEliminar)) {
                 System.out.println("Hechizo eliminado con éxito..");

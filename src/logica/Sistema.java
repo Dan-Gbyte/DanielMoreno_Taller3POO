@@ -14,7 +14,7 @@ public interface Sistema {
 	//Magos 
 	boolean agregarMago(String nombre);    //booleanos para en panel admin verificar con ifs..
 	boolean eliminarMago(int indice);
-	boolean modificarMago(int indice, String nuevoNombre);
+	public boolean modificarMago(int tipoCambio, int indice, String nuevoDato);
 	String mostrarMagos();
 	
 	//hechizos
@@ -25,7 +25,6 @@ public interface Sistema {
 	
 	Hechizo buscarHechizo(String buscado);
 	boolean aprenderHechizo(String nomMago, int indice);
-	//int leerOpcionSegura(Scanner sc); //creo que esto no deberia estar aca.., no tiene que saber nada de los scanner el sistema..
 	
 	//analista
 	String obtenerTop10Hechizos();

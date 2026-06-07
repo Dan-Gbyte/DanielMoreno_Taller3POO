@@ -28,19 +28,22 @@ public class PanelAnalista {
 	public static void procesarOpcion(int opcion, SistemaMagia sis, Scanner sc) {
 		switch (opcion) {
 		case 1:
-			
+			System.out.println(sis.obtenerTop10Hechizos());
 			break;
 		case 2:
+			System.out.print(sis.obtenerTop3Magos());
 			break;
 		case 3:
-			
+			System.out.println(sis.mostrarHechizos());
 			break;
 		case 4:
+			System.out.println(sis.mostrarMagos());
 			break;
 		case 5:
+			System.out.println(sis.mostrarTodosHechizosPuntuacion());
 			break;
 		case 6:
-			
+			System.out.println(sis.mostrarTodosMagosPuntuacion());
 			break;
 		case 7:
 			System.out.println("\nVolviendo al menú principal...\n");
@@ -50,4 +53,6 @@ public class PanelAnalista {
 			break;
 		}
 	}
+	
+	
 }
