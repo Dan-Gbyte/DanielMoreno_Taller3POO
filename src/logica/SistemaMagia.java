@@ -9,6 +9,12 @@ import java.util.Scanner;
 
 import dominio.*;
 
+/**
+ * Implementación concreta del Sistema de Magia.
+ * Administra el almacenamiento y lógica de negocio mediante colecciones dinámicas (ArrayList).
+ * Maneja las operaciones de lectura/escritura en archivos de texto, validaciones de seguridad
+ * y la ejecución de los algoritmos de ordenamiento (Bubble Sort) para las analíticas.
+ */
 public class SistemaMagia implements Sistema {
 	private ArrayList<Hechizo> listHechizos;
 	private ArrayList<Mago> listMagos;
@@ -156,7 +162,13 @@ public class SistemaMagia implements Sistema {
 
 	@Override
 	public boolean modificarMago(int tipoCambio, int indice, String nuevoDato) { // lo haré mas funcional
-																	
+		
+		if (indice < 0 || indice >= listMagos.size()) {
+			return false;
+		}
+		
+		Mago mago = listMagos.get(indice);
+		
 		switch(tipoCambio) {
 		case 1:
 			if (indice >= 0 && indice < listMagos.size()) {
@@ -172,17 +184,15 @@ public class SistemaMagia implements Sistema {
 			}
 			break;
 		case 2:
-			Mago mago = listMagos.get(indice);
 			Hechizo hechizo = buscarHechizo(nuevoDato);
-			if (hechizo != null) {
+			if (!mago.conoceHechizo(nuevoDato) && hechizo != null) {
 			mago.agregarHechizo(hechizo);
 			return true;
 			}
 			break;
 		case 3:
-			Mago mago_ = listMagos.get(indice);
-			mago_.olvidarHechizo(nuevoDato);
-			break;
+			return mago.olvidarHechizo(nuevoDato);
+			
 		}
 		return false;
 	}
@@ -223,7 +233,13 @@ public class SistemaMagia implements Sistema {
 	@Override
 	public boolean eliminarHechizo(int indice) {
 		if (indice >= 0 && indice < listHechizos.size()) {
+			
+			for (Mago mago: listMagos) {
+				mago.olvidarHechizo(listHechizos.get(indice).getNombre());
+			}
 			listHechizos.remove(indice);
+			
+			guardarMagos();
 			return true;
 		}
 		return false;
@@ -350,8 +366,7 @@ public class SistemaMagia implements Sistema {
 
 	@Override
 	public Hechizo obtenerHechizo(int indice) {
-		// TODO Auto-generated method stub
-		return null;
+		return listHechizos.get(indice);
 	}
 
 	@Override
@@ -375,7 +390,13 @@ public class SistemaMagia implements Sistema {
 
 	@Override
 	public boolean modificarHechizo(int indice, String nuevoNombre, int nuevoDano, int extra1, int extra2) {
-		// TODO Auto-generated method stub
-		return false;
+		if (indice >= 0 && indice < listHechizos.size()) {
+	        Hechizo hechizo = listHechizos.get(indice);
+	        hechizo.setNombre(nuevoNombre);
+	        hechizo.setDaño(nuevoDano);
+	        hechizo.modificarExtras(extra1, extra2);
+	        return true;
+	    }
+	    return false;
 	}
 }

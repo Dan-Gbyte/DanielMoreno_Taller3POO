@@ -6,8 +6,20 @@ import dominio.HechizoFuego;
 import dominio.HechizoPlanta;
 import dominio.HechizoTierra;
 
+/**
+ * Clase fábrica que implementa el patrón Factory para la creación centralizada
+ * de objetos pertenecientes a la jerarquía de Hechizos.
+ */
 public class HechizosFactory {
 	
+	/**
+     * Procesa una cadena de texto estructurada y construye la subclase de Hechizo correspondiente.
+     * Se encarga de parsear los atributos específicos de cada elemento mágico.
+     * * @param linea Texto extraído del archivo con formato "Nombre;Tipo;Daño;AtributosExtra".
+     * @return Una instancia de Hechizo (Fuego, Tierra, Planta o Agua) instanciada correctamente,
+     * o null si el tipo especificado no es reconocido.
+     * @throws NumberFormatException Si los valores numéricos de la cadena son inválidos.
+     */
 	public static Hechizo crearHechizo(String linea) { 
 		String[] partes = linea.split(";");
 		String nombre = partes[0];

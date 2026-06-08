@@ -2,6 +2,11 @@ package dominio;
 
 import java.util.ArrayList;
 
+/**
+ * Entidad que representa a un Mago en el ecosistema del juego.
+ * Posee la capacidad de almacenar dinámicamente un repertorio de objetos Hechizo
+ * y delegar el cálculo de sus puntuaciones totales.
+ */
 public class Mago implements Calculable {
 	private String nombre;
 	private ArrayList<Hechizo> listHechizos;
@@ -39,7 +44,7 @@ public class Mago implements Calculable {
 		
 		String repertorio = listHechizos.get(0).getNombre();
 		for (int i = 1; i < listHechizos.size(); i++) {
-			repertorio = repertorio + "| tipo:" + listHechizos.get(0).getTipo()+ "| daño base:" + listHechizos.get(0).getDaño();
+			repertorio = repertorio + "|" + listHechizos.get(i).getNombre();
 		}
 		return repertorio;
 	}
@@ -52,10 +57,17 @@ public class Mago implements Calculable {
 				return true;
 			}
 		}
-		
 		return false;
 	}
 
+	public boolean conoceHechizo(String nombreHechizo) {
+	    for (Hechizo h : listHechizos) {
+	        if (h.getNombre().equalsIgnoreCase(nombreHechizo)) {
+	            return true;
+	        }
+	    }
+	    return false;
+	}
 
 	
 }

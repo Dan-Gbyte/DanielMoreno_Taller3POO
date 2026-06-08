@@ -10,7 +10,7 @@ public class HechizoTierra extends Hechizo {
 
 	@Override
 	public double calcularPuntaje() {
-		return (super.getDaño()*this.mejoraDefensa)/2;
+		return (super.getDaño()*this.mejoraDefensa)/2.0;
 	}
 
 	@Override

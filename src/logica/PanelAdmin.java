@@ -53,6 +53,7 @@ public class PanelAdmin {
             int opcionModificar = HerramientasConsola.leerOpcionSegura(sc);
             switch (opcionModificar) {
             
+            
             case 1:
             	System.out.print("Ingrese el nuevo nombre del mago: ");
                 String nuevoNom = sc.nextLine();
@@ -163,6 +164,15 @@ public class PanelAdmin {
 			System.out.println("Modificando hechizo de tipo " + hMod.getTipo().toUpperCase() + "...");
 			System.out.print("Ingrese el nuevo nombre (o el mismo para mantenerlo): ");
 			String nNombre = sc.nextLine();
+			
+			if (!nNombre.equalsIgnoreCase(hMod.getNombre())) { //revisamos que no exista ya el hechizo
+			    if (sis.buscarHechizo(nNombre) != null) {
+			        System.out.println("Error: Ya existe otro hechizo con ese nombre.");
+			        break; 
+			    }
+			}
+			
+			
 			System.out.print("Ingrese el nuevo daño base: ");
 			int nDano = HerramientasConsola.leerOpcionSegura(sc);
 
@@ -204,7 +214,6 @@ public class PanelAdmin {
             } else {
                 System.out.println("Error indice inválido");
             }
-			sis.guardarHechizos();
 			break;
 		case 7:
 			System.out.println("\nVolviendo al menú principal...\n");

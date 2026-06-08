@@ -1,3 +1,15 @@
+/*
+	Daniel Gabriel Moreno Moreno
+	22.152.252-4 
+	Ingeniería Civil en computación e informática
+	
+	
+	Demian Antonio Catalán Cruces
+	22.241.541-1
+	Ingeniería Civil en computación e informática
+	*/
+
+
 package logica;
 
 import java.io.BufferedWriter;
