@@ -8,7 +8,7 @@ import dominio.HechizoTierra;
 
 public class HechizosFactory {
 	
-	public static Hechizo crearHechizo(String linea) {
+	public static Hechizo crearHechizo(String linea) { 
 		String[] partes = linea.split(";");
 		String nombre = partes[0];
 		String tipo = partes[1];

@@ -18,5 +18,11 @@ public class HechizoTierra extends Hechizo {
 		String datos = super.getDatos() + ";" + this.mejoraDefensa;
 		return datos;
 	}
+
+	@Override
+	public void modificarExtras(int ext1, int ext2) {
+		this.mejoraDefensa = ext1;
+		
+	}
 	
 }

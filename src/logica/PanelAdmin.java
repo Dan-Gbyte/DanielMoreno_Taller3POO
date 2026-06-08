@@ -2,6 +2,8 @@ package logica;
 
 import java.util.Scanner;
 
+import dominio.Hechizo;
+
 public class PanelAdmin {
 	public static void iniciarPanelA(SistemaMagia sis, Scanner sc ) {
 		int opcion = 0;
@@ -76,7 +78,7 @@ public class PanelAdmin {
             		}
             	break;
             case 3:
-            	System.out.println(sis.mostrarHechizos() +
+            	System.out.println(sis.mostrarHechizosMago(indexMod) +                                 	//mostrar repertorio .getRepertorio mejor
             			"\nIngrese el nombre del hechizo a olvidar: ");
             	String hechizoOlvidable = sc.nextLine();
             	if (sis.modificarMago(3, indexMod, hechizoOlvidable)) {
@@ -107,7 +109,7 @@ public class PanelAdmin {
 		case 4:
 			System.out.print("Nombre del hechizo: ");
             String nom = sc.nextLine();
-            System.out.print("Tipo (Fuego, Tierra, Planta, Agua): ");
+            System.out.print("Tipo (Fuego, Tierra, Planta, Agua), con su mayuscula respectiva: ");
             String tipo = sc.nextLine();
             System.out.print("Daño base: ");
             int dano = HerramientasConsola.leerOpcionSegura(sc);
@@ -149,19 +151,47 @@ public class PanelAdmin {
             break;
 		case 5:
 			System.out.println(sis.mostrarHechizos());
-            System.out.print("Seleccione el índice del hechizo a modificar: ");
-            int idxMod = HerramientasConsola.leerOpcionSegura(sc) - 1;
-            
-            System.out.print("Ingrese el nuevo daño base: ");
-            int nDano = HerramientasConsola.leerOpcionSegura(sc);
-            
-            if (sis.modificarHechizo(idxMod, nDano)) {
-                System.out.println("Hechizo modificado y en todos los magos!");
-                sis.guardarHechizos();
-                sis.guardarMagos(); // Guardamos magos también porque sus puntuaciones cambiaron o no??
-            } else {
-                System.out.println("Error indice inválido");
-            }
+			System.out.print("Seleccione el índice del hechizo a modificar: ");
+			int idxMod = HerramientasConsola.leerOpcionSegura(sc) - 1;
+
+			Hechizo hMod = sis.obtenerHechizo(idxMod); //hechizo qe vamos a modificar
+			if (hMod == null) {
+				System.out.println("Error indice inválido.");
+				break;
+			}
+
+			System.out.println("Modificando hechizo de tipo " + hMod.getTipo().toUpperCase() + "...");
+			System.out.print("Ingrese el nuevo nombre (o el mismo para mantenerlo): ");
+			String nNombre = sc.nextLine();
+			System.out.print("Ingrese el nuevo daño base: ");
+			int nDano = HerramientasConsola.leerOpcionSegura(sc);
+
+			int ext1 = 0, ext2 = 0;
+			if (hMod.getTipo().equalsIgnoreCase("Fuego")) {
+				System.out.print("Nueva duración de quemadura: ");
+				ext1 = HerramientasConsola.leerOpcionSegura(sc);
+			} else if (hMod.getTipo().equalsIgnoreCase("Tierra")) {
+				System.out.print("Nueva mejora de defensa: ");
+				ext1 = HerramientasConsola.leerOpcionSegura(sc);
+			} else if (hMod.getTipo().equalsIgnoreCase("Planta")) {
+				System.out.print("Nueva duración del Stun: ");
+				ext1 = HerramientasConsola.leerOpcionSegura(sc);
+				System.out.print("Nueva cantidad de plantas: ");
+				ext2 = HerramientasConsola.leerOpcionSegura(sc);
+			} else if (hMod.getTipo().equalsIgnoreCase("Agua")) {
+				System.out.print("Nueva cantidad de curación: ");
+				ext1 = HerramientasConsola.leerOpcionSegura(sc);
+				System.out.print("Nueva presión de agua: ");
+				ext2 = HerramientasConsola.leerOpcionSegura(sc);
+			}
+
+			if (sis.modificarHechizo(idxMod, nNombre, nDano, ext1, ext2)) {
+				System.out.println("Hechizo modificado con éxito en el catálogo y en todos los magos!!!!");
+				sis.guardarHechizos();
+				sis.guardarMagos(); //guardar magos porque su puntaje total cambio
+			} else {
+				System.out.println("Error al modificar");
+			}
 			break;
 		case 6:
 			System.out.println(sis.mostrarHechizos());

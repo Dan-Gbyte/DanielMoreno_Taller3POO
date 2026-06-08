@@ -1,16 +1,19 @@
-Pruno;Sofoco|Sofoco|Sofoco|Sofoco
-Ferran;Salmuera|Salmuera|Salmuera|Salmuera|Salmuera|Salmuera|Salmuera
-Sasa;Infierno|Infierno|Infierno|Infierno
-Mul;Gigadrenado|Gigadrenado|Gigadrenado|Gigadrenado
-Branco;Arraigo|Arraigo|Arraigo
-MartinNegro;Acua Aro|Acua Aro|Acua Aro|Acua Aro|Acua Aro|Acua Aro|Acua Aro
-EmaArdillaRabiosa;Origen Pulso|Origen Pulso|Origen Pulso|Origen Pulso
-Danini;Fuego Sagrado|Fuego Sagrado|Fuego Sagrado|Fuego Sagrado|Fuego Sagrado
-Maxi;Explosión Ígnea|Explosión Ígnea|Explosión Ígnea
-MartinAyudanteHermoso;Disparo Lodo|Disparo Lodo|Disparo Lodo|Disparo Lodo|Disparo Lodo
-Estefania;Hoja Afilada|Hoja Afilada|Hoja Afilada|Hoja Afilada|Hoja Afilada|Hoja Afilada|Hoja Afilada
-Churrasquita;Origen Pulso|Origen Pulso|Origen Pulso|Origen Pulso|Origen Pulso
-Clapt;Pulso de Agua|Pulso de Agua|Pulso de Agua
-Rabi;Latigazo|Latigazo|Latigazo|Latigazo|Latigazo|Latigazo
-Nilo;Patada Ígnea|Patada Ígnea|Patada Ígnea|Patada Ígnea|Patada Ígnea|Patada Ígnea|Patada Ígnea
-Papulini;Fuego Sagrado|Fuego Sagrado|Fuego Sagrado
+Pruno;Sofoco| tipo:Fuego| daño base:36| tipo:Fuego| daño base:36| tipo:Fuego| daño base:36
+Ferran;Salmuera| tipo:Agua| daño base:61| tipo:Agua| daño base:61| tipo:Agua| daño base:61| tipo:Agua| daño base:61| tipo:Agua| daño base:61| tipo:Agua| daño base:61
+Sasa;Infierno| tipo:Fuego| daño base:26| tipo:Fuego| daño base:26| tipo:Fuego| daño base:26
+Mul;Gigadrenado| tipo:Planta| daño base:34| tipo:Planta| daño base:34| tipo:Planta| daño base:34
+Branco;Arraigo| tipo:Planta| daño base:62| tipo:Planta| daño base:62
+MartinNegro;Acua Aro| tipo:Agua| daño base:105| tipo:Agua| daño base:105| tipo:Agua| daño base:105| tipo:Agua| daño base:105| tipo:Agua| daño base:105| tipo:Agua| daño base:105
+EmaArdillaRabiosa;Origen Pulso| tipo:Agua| daño base:21| tipo:Agua| daño base:21| tipo:Agua| daño base:21
+Danini;Fuego Sagrado| tipo:Fuego| daño base:38| tipo:Fuego| daño base:38| tipo:Fuego| daño base:38| tipo:Fuego| daño base:38
+Maxi;Explosión Ígnea| tipo:Fuego| daño base:61| tipo:Fuego| daño base:61
+MartinAyudanteHermoso;Disparo Lodo| tipo:Tierra| daño base:48| tipo:Tierra| daño base:48| tipo:Tierra| daño base:48| tipo:Tierra| daño base:48
+Estefania;Hoja Afilada| tipo:Planta| daño base:69| tipo:Planta| daño base:69| tipo:Planta| daño base:69| tipo:Planta| daño base:69| tipo:Planta| daño base:69| tipo:Planta| daño base:69
+Churrasquita;Origen Pulso| tipo:Agua| daño base:21| tipo:Agua| daño base:21| tipo:Agua| daño base:21| tipo:Agua| daño base:21
+Clapt;Pulso de Agua| tipo:Agua| daño base:35| tipo:Agua| daño base:35
+Rabi;Latigazo| tipo:Planta| daño base:93| tipo:Planta| daño base:93| tipo:Planta| daño base:93| tipo:Planta| daño base:93| tipo:Planta| daño base:93
+Nilo;Patada Ígnea| tipo:Fuego| daño base:82| tipo:Fuego| daño base:82| tipo:Fuego| daño base:82| tipo:Fuego| daño base:82| tipo:Fuego| daño base:82| tipo:Fuego| daño base:82
+Papulini;Fuego Sagrado| tipo:Fuego| daño base:38| tipo:Fuego| daño base:38
+dsd; 
+lol; 
+23424324; 

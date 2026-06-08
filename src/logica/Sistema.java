@@ -31,4 +31,9 @@ public interface Sistema {
     String obtenerTop3Magos();
     String mostrarTodosHechizosPuntuacion();
     String mostrarTodosMagosPuntuacion();
+    
+
+    Hechizo obtenerHechizo(int indice);
+    String mostrarHechizosMago(int indice);
+    boolean modificarHechizo(int indice, String nuevoNombre, int nuevoDano, int extra1, int extra2);
 }

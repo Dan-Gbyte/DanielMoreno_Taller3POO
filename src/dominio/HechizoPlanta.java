@@ -20,5 +20,11 @@ public class HechizoPlanta extends Hechizo {
 		String datos = super.getDatos() + ";" + this.duracionStun + "," + this.cantPlantas;
 		return datos;
 	}
+
+	@Override
+	public void modificarExtras(int ext1, int ext2) {
+		this.duracionStun = ext1;
+        this.cantPlantas = ext2;
+	}
 	
 }

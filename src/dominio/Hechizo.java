@@ -12,7 +12,9 @@ public abstract class Hechizo implements Calculable {
 		
 	}
 	
-
+	//para modificar hechizos
+	public abstract void modificarExtras(int ext1, int ext2);
+	
 	public String getNombre() {
 		return nombre;
 	}

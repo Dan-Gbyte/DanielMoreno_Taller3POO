@@ -39,7 +39,7 @@ public class Mago implements Calculable {
 		
 		String repertorio = listHechizos.get(0).getNombre();
 		for (int i = 1; i < listHechizos.size(); i++) {
-			repertorio = repertorio + "|" + listHechizos.get(0).getNombre();
+			repertorio = repertorio + "| tipo:" + listHechizos.get(0).getTipo()+ "| daño base:" + listHechizos.get(0).getDaño();
 		}
 		return repertorio;
 	}

@@ -27,13 +27,18 @@ public class SistemaMagia implements Sistema {
 				String[] partes = sc.nextLine().split(";");
 				String nombre = partes[0];
 				Mago nuevoMago = new Mago(nombre);
-
-				String[] partesHechizos = partes[1].split("\\|"); // al parecer da error esta cosa sin los dos "\\"
-				for (int i = 0; i < partesHechizos.length; i++) {
-					String nomHechizo = partesHechizos[i];
-					Hechizo hechizoCatalogo = this.buscarHechizo(nomHechizo);
-					nuevoMago.agregarHechizo(hechizoCatalogo);
+				
+				if (partes.length > 1 && !partes[1].trim().isEmpty()) {
+					String[] partesHechizos = partes[1].split("\\|"); 
+					for (int i = 0; i < partesHechizos.length; i++) {
+						String nomHechizo = partesHechizos[i];
+						Hechizo hechizoCatalogo = this.buscarHechizo(nomHechizo);
+						if (hechizoCatalogo != null) {
+							nuevoMago.agregarHechizo(hechizoCatalogo);
+						}
+					}
 				}
+				
 				listMagos.add(nuevoMago);
 			}
 			sc.close();
@@ -94,7 +99,7 @@ public class SistemaMagia implements Sistema {
 	@Override
 	public Hechizo buscarHechizo(String nomHechizo) {
 		for (Hechizo hechizoCatalogo : listHechizos) {
-			if (hechizoCatalogo.getNombre().equals(nomHechizo)) {
+			if (hechizoCatalogo.getNombre().equalsIgnoreCase(nomHechizo)) {
 				return hechizoCatalogo;
 
 			}
@@ -119,7 +124,7 @@ public class SistemaMagia implements Sistema {
 			return "No hay magos registrados en el sistema..";
 		}
 
-		// Armamos un texto gigante con todos los magos, NO usamos System.out.println
+		// Armamos un texto gigante con todos los magos
 		String texto = "--- LISTA DE MAGOS ---\n";
 		for (int i = 0; i < listMagos.size(); i++) {
 			texto += i+1 + ") " + listMagos.get(i).getNombre() + "\n";
@@ -272,7 +277,7 @@ public class SistemaMagia implements Sistema {
 			return "No hay magos registrados en el sistema..";
 		}
 
-		// Armamos un texto gigante con todos los magos, NO usamos System.out.println
+		// Armamos un texto gigante con todos los magos
 		String texto = "--- LISTA DE MAGOS ---\n"
 				+ "NOMBRE  |  PUNTUACIÓN \n";
 		for (int i = 0; i < listMagos.size(); i++) {
@@ -341,5 +346,36 @@ public class SistemaMagia implements Sistema {
 	    	texto += i+1 + "° lugar: " + copiaMagos.get(i).getNombre() + " con " + copiaMagos.get(i).calcularPuntaje() + " puntos\n";
 	    }
 		return texto; 
+	}
+
+	@Override
+	public Hechizo obtenerHechizo(int indice) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String mostrarHechizosMago(int indice) {
+		// Validar 
+		if (indice < 0 || indice >= listMagos.size()) {
+			return "Mago no válido.";
+		}
+		
+		Mago m = listMagos.get(indice);
+		String textoRepertorio = m.getRepertorio();
+		
+		
+		if (textoRepertorio == null || textoRepertorio.trim().isEmpty()) {
+			return "Este mago no conoce ningún hechizo actualmente.";
+		}
+		
+		// Si tiene hechizos le ponemos un titulo 
+		return "--- HECHIZOS DE " + m.getNombre().toUpperCase() + " ---\n" + textoRepertorio;
+	}
+
+	@Override
+	public boolean modificarHechizo(int indice, String nuevoNombre, int nuevoDano, int extra1, int extra2) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

@@ -27,5 +27,12 @@ public class HechizoAgua extends Hechizo {
 		return "Nombre: " + this.getNombre() + " | Tipo: " + this.getTipo() + " | Daño: "+ this.getDaño() + " | Healing: "+ cantidadHeal + " | Presión del agua: " + presionAgua + "\n";
 	}
 
+	@Override
+	public void modificarExtras(int ext1, int ext2) {
+		this.cantidadHeal = ext1;
+        this.presionAgua = ext2;
+		
+	}
+
 	
 }

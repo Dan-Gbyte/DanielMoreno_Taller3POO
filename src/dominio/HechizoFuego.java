@@ -19,4 +19,10 @@ public class HechizoFuego extends Hechizo {
 		String datos = super.getDatos() + ";" + this.duracionQuemadura;
 		return datos;
 	}
+
+	@Override
+	public void modificarExtras(int ext1, int ext2) {
+		this.duracionQuemadura = ext1;
+		
+	}
 }
