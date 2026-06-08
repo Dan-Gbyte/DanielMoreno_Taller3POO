@@ -15,6 +15,5 @@ Rabi;Latigazo
 Nilo;Patada Ígnea
 Papulini;Fuego Sagrado
 dsd; 
-lol; 
-23424324; 
-DemianElLavaplatos;Origen Pulso| tipo:Agua| daño base:21
+DemianElLavaplatos;Origen Pulso
+salir quiero;Bucle Arena|Origen Pulso

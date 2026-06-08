@@ -185,7 +185,7 @@ public class SistemaMagia implements Sistema {
 			break;
 		case 2:
 			Hechizo hechizo = buscarHechizo(nuevoDato);
-			if (!mago.conoceHechizo(nuevoDato) && hechizo != null) {
+			if (!mago.conoceHechizo(nuevoDato)&& hechizo != null) {
 			mago.agregarHechizo(hechizo);
 			return true;
 			}
